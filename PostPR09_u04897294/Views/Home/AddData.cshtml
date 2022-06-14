@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "AddData";
+}
+
+<div><h2>Add Numbers</h2></div>
+
+@{ var result = "";
+    int SumData = 0;
+    if (IsPost)
+    {
+        int Number1 = Request["Number1"].AsInt();
+        int Number2 = Request["Number2"].AsInt();
+        int Number3 = Request["Number3"].AsInt();
+        int Number4 = Request["Number4"].AsInt();
+        int Number5 = Request["Number5"].AsInt();
+        int Number6 = Request["Number6"].AsInt();
+        SumData = Number3 + Number1 + Number2 + Number4 + Number5 + Number6;
+
+        var tempData = Number1 + "," + Number2 + "," + Number3 + "," + Number4 + "," + Number5 +
+    "," + Number6 + "," + SumData + Environment.NewLine;
+
+        var dataFile = Server.MapPath("~/App_Data/data.txt");
+        File.AppendAllText(@dataFile, tempData);
+        result = "Information saved.";
+
+
+    }
+}
+
+<br />
+<form method="post">
+    <div>
+        <table>
+            <tr>
+                <td><p><label for="Number1">Number 1:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number1" value="" /></p></td>
+            </tr>
+            <tr>
+                <td><p><label for="Number2">Number 2:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number2" value="" /></p></td>
+            </tr>
+
+            <tr>
+                <td><p><label for="Number3">Number 3:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number3" value="" /></p></td>
+            </tr>
+
+            <tr>
+                <td><p><label for="Number4">Number 4:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number4" value="" /></p></td>
+            </tr>
+
+            <tr>
+                <td><p><label for="Number5">Number 5:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number5" value="" /></p></td>
+            </tr>
+
+            <tr>
+                <td><p><label for="Number6">Number 6:&nbsp;</label></p></td>
+                <td><p><input type="text" name="Number6" value="" /></p></td>
+            </tr>
+
+            <tr>
+                <td><p><label>&nbsp;</label></p></td>
+                <td><p><input type="submit" value="Submit" class="submit" /></p></td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        @if (result != "")
+        {
+            <p>Result: @result</p>
+            <p>The expected TOTAL SUM is @SumData</p>}
+    </div>
+</form>
+

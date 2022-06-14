@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "ShowData";
+}
+
+
+<style type="text/css">
+    .auto-style {
+        color: #FFFFFF;
+    }
+
+    .tbody {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+
+
+
+    <h2>The SUM of all numbers......</h2>
+
+
+@{ var result = "";
+    Array tempData = null;
+    char[] delimiterChar = { ',' };
+
+    var dataFile = Server.MapPath("~/App_Data/data.txt");
+
+
+    if (File.Exists(dataFile))
+    {
+            tempData = File.ReadAllLines(dataFile);
+            if (tempData == null)
+            {
+
+                result = "The file is empty.";
+            }
+    }
+
+
+            else
+            {
+                result = "The file does not exist.";
+            }
+}
+
+    <div>
+        @result
+        @if (result == "")
+        {
+            
+                    <table class="table table-condensed table-hover">
+                           <thead style="position: sticky;top: 0" class="tbody">
+                            <tr bgcolor="#222222" class="auto-style">
+                            <th >Number 1</th>
+                            <th >Number 2</th>
+                            <th >Number 3</th>
+                            <th >Number 4</th>
+                            <th >Number 5</th>
+                            <th >Number 6</th>
+                            <th >SUM TOTAL</th>
+            </tr>
+        </thead>
+        @foreach (string dataLine in tempData)
+        {
+            <tr>
+        @foreach (string dataItem in dataLine.Split(delimiterChar))
+        {
+        <td class="t">@dataItem</td>}
+</tr>}
+    </table>
+    }
+    </div>
+
+
